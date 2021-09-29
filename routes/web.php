@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminControlle;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get(['prefix' => 'admin', 'middleware' =>['admin.admin']], function() {
+    Route::get('login', [AdminController::class, 'loginForm']);
+});
+
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
