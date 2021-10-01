@@ -37,6 +37,12 @@ class AdminController extends Controller
         $this->guard = $guard;
     }
 
+
+    public function loginForm() {
+        return view('auth.login',['guard'=>'admin']);
+    }
+
+
     /**
      * Show the login view.
      *
@@ -83,7 +89,8 @@ class AdminController extends Controller
 
         return (new Pipeline(app()))->send($request)->through(array_filter([
             config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
-            Features::enabled(Features::twoFactorAuthentication()) ? RedirectIfTwoFactorAuthenticatable::class : null,
+            // Features::enabled(Features::twoFactorAuthentication()) ? RedirectIfTwoFactorAuthenticatable::class : null,
+            RedirectIfTwoFactorAuthenticatable::class,
             AttemptToAuthenticate::class,
             PrepareAuthenticatedSession::class,
         ]));

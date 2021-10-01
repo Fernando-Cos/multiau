@@ -17,6 +17,12 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('cpf')->nullable();
+            $table->foreignId('id_unidade_fk')->nullable();
+            $table->foreignId('id_area_fk')->nullable();
+            $table->foreignId('id_subarea_fk')->nullable();
+            $table->foreignId('id_permissao_fk')->nullable();
+            $table->tinyInteger('ativo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

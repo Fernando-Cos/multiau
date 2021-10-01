@@ -7,6 +7,8 @@ use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use App\Http\Controllers\AdminController;
 
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
@@ -29,7 +31,9 @@ class FortifyServiceProvider extends ServiceProvider
     {
         // Registrando todos os serviços da aplicação...
         $this->app->when([AdminController::class, AttemptToAuthenticate::class,
-            RedirectIfTwoFactorAuthenticatable::class])->needs(StatefulGuard::class)->give(function() {
+            RedirectIfTwoFactorAuthenticatable::class])
+            ->needs(StatefulGuard::class)
+            ->give(function() {
                 return Auth::guard('admin');
             });
     }

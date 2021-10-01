@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Guards;
-
+// namespace Illuminate\Contracts\Auth;
 
 interface StatefulGuard extends Guard
 {
